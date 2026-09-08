@@ -1,11 +1,29 @@
-<!DOCTYPE html>
-
-<html>
-   <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-      <base target="_top">
-   </head>
-   <body>
-      <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;border: 0;" src="https://script.google.com/macros/s/AKfycbxsR84XffxsZpIGA1ZMuoZNdK-sMaXx92l5mRXY1FiPcOLYdLcf32bVIsHHflleFDjG/exec"></iframe>
-   </body>
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    <title>RASME Self-Study</title>
+    <style>
+      html,body,iframe{width:100%;height:100%;margin:0;border:0}
+      body{overflow:hidden;background:#f7f8fa}
+      iframe{display:block}
+    </style>
+  </head>
+  <body>
+    <iframe id="app" title="RASME Self-Study" allow="clipboard-write"></iframe>
+    <script>
+      (()=>{
+        const appUrl=new URL('https://script.google.com/macros/s/AKfycbxsR84XffxsZpIGA1ZMuoZNdK-sMaXx92l5mRXY1FiPcOLYdLcf32bVIsHHflleFDjG/exec');
+        const incoming=new URLSearchParams(location.search);
+        ['adminScanNonce','adminScanQr','adminScanCancel','qr','reset'].forEach(key=>{
+          const value=incoming.get(key);
+          if(value)appUrl.searchParams.set(key,value);
+        });
+        document.getElementById('app').src=appUrl.href;
+        if(incoming.size)history.replaceState({},'',location.pathname);
+      })();
+    </script>
+  </body>
 </html>
