@@ -440,6 +440,23 @@ test('Service terms require reading and an accessible unchecked consent checkbox
   assert(html.includes('consent.onchange=update'));
   assert(html.includes('.service-terms-consent input:focus-visible'));
 });
+
+test('Service terms include the updated mannequin care rules in order', () => {
+  const rules=[
+    'แม้เป็นการทำหัตถการกับหุ่นจำลอง แต่ขอให้ปฏิบัติตามมาตรฐานการให้บริการทุกขั้นตอน เปรียบเสมือนปฏิบัติกับผู้ป่วยจริง',
+    'หลังฝึก จัดหุ่นจำลองและอุปกรณ์กลับเข้าที่ให้พร้อมใช้งานครั้งต่อไป',
+    'ไม่นำหมึกปากกา หรือมือที่เปื้อนหมึกสัมผัสตัวหุ่น',
+    'ระวังของมีคมและเล็บมือขีดข่วนหุ่น',
+    'เมื่อพบความผิดปกติ ห้ามแก้ไขหรือปรับอุปกรณ์เอง กรุณาแจ้งเจ้าหน้าที่ผู้ดูแล หรือ SOS ผ่าน LINE OA ศูนย์ฯ'
+  ];
+  let previous=-1;
+  rules.forEach(rule=>{
+    const position=html.indexOf(`<li>${rule}</li>`);
+    assert.ok(position>previous,`Expected service term in order: ${rule}`);
+    previous=position;
+  });
+  assert.ok(!html.includes('ใช้หุ่นจำลองอย่างระมัดระวัง เสมือนดูแลผู้ป่วยจริง'));
+});
 test('Login and service-consent actions use the Biscay Green reference color', () => {
   assert(html.includes('--biscay-green:#56c6a9'));
   assert(html.includes('.login-submit{position:relative;background:var(--biscay-green)'));
