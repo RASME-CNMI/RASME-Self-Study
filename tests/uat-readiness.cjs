@@ -153,6 +153,12 @@ test('Procedure detail uses icon facts, official hours and concise labels', () =
   assert(html.includes('onclick="showSlots()">รอบทั้งหมด</button>'));
   assert(!html.includes('ตรวจสอบรอบเวลา</button>'));
 });
+test('Booking slots highlight dates and capacity with Biscay Green', () => {
+  assert(html.includes('.date-label{width:max-content;max-width:100%;margin:0 0 6px;padding:9px 13px;border:0;border-radius:4px;background:var(--biscay-green)'));
+  assert(html.includes('.slot-count{color:var(--biscay-green);font-size:18px}'));
+  assert(html.includes('<h2 class="date-label">วันที่ ${esc(list[0].dateDisplay)}</h2>'));
+  assert(html.includes('<div class="slot-count">${s.booked} / ${s.maxCapacity}</div>'));
+});
 test('Procedure detail reads only four required datasets, not full history/users', () => {
   const reads=[];
   const c=context({require_:()=>({}),CacheService:{getScriptCache:()=>({get:()=>null,put:()=>{}})},Utilities:{formatDate:()=> '2026-09-05'},SpreadsheetApp:{getActiveSpreadsheet:()=>({getSheetByName:n=>n})},rows_:n=>{reads.push(n);return[];},cachedSheetRows_:n=>{reads.push(n);return n==='Procedures'?[{ProcedureID:'p',ProcedureName:'Test',Status:'Active'}]:[];},cachedSettings_:()=>{reads.push('Settings');return{};}});
