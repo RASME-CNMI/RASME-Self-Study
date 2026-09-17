@@ -440,6 +440,13 @@ test('Service terms require reading and an accessible unchecked consent checkbox
   assert(html.includes('consent.onchange=update'));
   assert(html.includes('.service-terms-consent input:focus-visible'));
 });
+test('Login and service-consent actions use the Biscay Green reference color', () => {
+  assert(html.includes('--biscay-green:#56c6a9'));
+  assert(html.includes('.login-submit{position:relative;background:var(--biscay-green)'));
+  assert(html.includes('.service-terms footer .btn:not(:disabled){background:var(--biscay-green)'));
+  assert(html.includes('accent-color:var(--biscay-green)'));
+  assert(html.includes('.service-terms footer .btn:disabled{background:#eceeef'));
+});
 test('Booking email is plain text, complete and adapts to round confirmation', () => {
   const c=context({setting_:()=>15});
   const base={id:'BK-001',procedureName:'หัตถการทดสอบ',dateDisplay:'09/09/2569',timeDisplay:'09:15–14:00',room:'10-11',floor:'3',status:'Reserved',sessionStatus:'Open',bookedCount:1,minCapacity:2,cancelCutoff:'02/09/2569 23:59 น.'};
